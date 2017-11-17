@@ -1,5 +1,7 @@
-﻿@using CameraBazza.Views.Manage
-@inject SignInManager<ApplicationUser> SignInManager
+﻿@using CameraBazza.Data.Models
+@using CameraBazza.Web.Views.Manage
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> SignInManager
 @{
     var hasExternalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).Any();
 }

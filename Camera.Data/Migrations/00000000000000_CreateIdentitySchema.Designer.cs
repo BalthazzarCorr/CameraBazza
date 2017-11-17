@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace CameraBazza.Data.Migrations
+﻿namespace CameraBazza.Data.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+   using System;
+   using Microsoft.EntityFrameworkCore;
+   using Microsoft.EntityFrameworkCore.Metadata;
+   using Microsoft.EntityFrameworkCore.Infrastructure;
+   using Microsoft.EntityFrameworkCore.Migrations;
+
+   [DbContext(typeof(ApplicationDbContext))]
     [Migration("00000000000000_CreateIdentitySchema")]
     partial class CreateIdentitySchema
     {
@@ -126,7 +123,7 @@ namespace CameraBazza.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("CameraBazza.Models.ApplicationUser", b =>
+            modelBuilder.Entity("CameraBazza.Models.User", b =>
                 {
                     b.Property<string>("Id");
 
@@ -185,7 +182,7 @@ namespace CameraBazza.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("CameraBazza.Models.ApplicationUser")
+                    b.HasOne("CameraBazza.Models.User")
                         .WithMany("Claims")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -193,7 +190,7 @@ namespace CameraBazza.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("CameraBazza.Models.ApplicationUser")
+                    b.HasOne("CameraBazza.Models.User")
                         .WithMany("Logins")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -206,7 +203,7 @@ namespace CameraBazza.Data.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("CameraBazza.Models.ApplicationUser")
+                    b.HasOne("CameraBazza.Models.User")
                         .WithMany("Roles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
