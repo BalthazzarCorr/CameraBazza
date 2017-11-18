@@ -11,49 +11,51 @@
    using Microsoft.Extensions.DependencyInjection;
 
    public class Startup
-   {
-      public Startup(IConfiguration configuration)
-      {
-         Configuration = configuration;
-      }
+    {
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
 
-      public IConfiguration Configuration { get; }
+        public IConfiguration Configuration { get; }
 
-      // This method gets called by the runtime. Use this method to add services to the container.
-      public void ConfigureServices(IServiceCollection services)
-      {
-         services.AddDbContext<ApplicationDbContext>(options =>
-             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+        // This method gets called by the runtime. Use this method to add services to the container.
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddDbContext<CamerBazzaDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-         services.AddIdentity<User, IdentityRole>()
-             .AddEntityFrameworkStores<ApplicationDbContext>()
-             .AddDefaultTokenProviders();
+            services.AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<CamerBazzaDbContext>()
+                .AddDefaultTokenProviders();
 
-        
-         services.AddDomainServices();
+            // Add application services.
+            services.AddDomainServices();
 
-         services.AddMvc();
-      }
+            services.AddMvc();
+        }
 
-      // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-      public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-      {
-         if (env.IsDevelopment())
-         {
-            app.UseDeveloperExceptionPage();
-            app.UseBrowserLink();
-            app.UseDatabaseErrorPage();
-         }
-         else
-         {
-            app.UseExceptionHandler("/Home/Error");
-         }
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        {
+           app.UseDatabaseMigration();
 
-         app.UseStaticFiles();
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+                app.UseBrowserLink();
+                app.UseDatabaseErrorPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
+            }
 
-         app.UseAuthentication();
+            app.UseStaticFiles();
 
-         app.UseMvcWithDefaultRoute();
-      }
-   }
+            app.UseAuthentication();
+
+           app.UseMvcWithDefaultRoute();
+        }
+    }
 }

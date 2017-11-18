@@ -19,8 +19,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Camera.Data\CameraBazza.Data.csproj" />
-    <ProjectReference Include="..\CameraBazza.Services\CameraBazza.Services.csproj" />
+    <ProjectReference Include="..\CameraBaza.Services\CameraBazza.Services.csproj" />
+    <ProjectReference Include="..\CameraBazza.Data\CameraBazza.Data.csproj" />
   </ItemGroup>
 
 </Project>

@@ -3,7 +3,7 @@
    using Microsoft.AspNetCore.Mvc;
 
    public static class ControllerExtention
-    {
+   {
       public static IActionResult ViewOrNotFound(this Controller controller, object model)
       {
          if (model == null)

@@ -1,12 +1,13 @@
-﻿namespace CameraBazza.Web.Infrastructure.Extensions
+﻿using System.Linq;
+
+namespace CameraBazza.Web.Infrastructure.Extensions
 {
-   using System.Linq;
    using System.Reflection;
    using Microsoft.Extensions.DependencyInjection;
    using Services;
 
    public static class ServiceCollectionExtentions
-    {
+   {
       public static IServiceCollection AddDomainServices(this IServiceCollection services)
       {
          Assembly
