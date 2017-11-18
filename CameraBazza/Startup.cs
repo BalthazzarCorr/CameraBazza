@@ -1,20 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using CameraBazza.Data;
-using CameraBazza.Models;
-using CameraBazza.Services;
-
-namespace CameraBazza
+﻿namespace CameraBazza.Web
 {
-    public class Startup
+   using Data;
+   using Data.Models;
+   using Infrastructure.Extensions;
+   using Microsoft.AspNetCore.Builder;
+   using Microsoft.AspNetCore.Hosting;
+   using Microsoft.AspNetCore.Identity;
+   using Microsoft.EntityFrameworkCore;
+   using Microsoft.Extensions.Configuration;
+   using Microsoft.Extensions.DependencyInjection;
+
+   public class Startup
     {
         public Startup(IConfiguration configuration)
         {
@@ -26,15 +22,15 @@ namespace CameraBazza
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<CamerBazzaDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
+            services.AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<CamerBazzaDbContext>()
                 .AddDefaultTokenProviders();
 
             // Add application services.
-            services.AddTransient<IEmailSender, EmailSender>();
+            services.AddDomainServices();
 
             services.AddMvc();
         }
@@ -57,12 +53,7 @@ namespace CameraBazza
 
             app.UseAuthentication();
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
+           app.UseMvcWithDefaultRoute();
         }
     }
 }

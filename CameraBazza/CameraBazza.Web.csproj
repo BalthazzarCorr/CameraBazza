@@ -18,4 +18,9 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CameraBaza.Services\CameraBazza.Services.csproj" />
+    <ProjectReference Include="..\CameraBazza.Data\CameraBazza.Data.csproj" />
+  </ItemGroup>
+
 </Project>

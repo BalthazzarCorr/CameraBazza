@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
-using CameraBazza.Models;
-
-namespace CameraBazza.Data
+﻿namespace CameraBazza.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+   using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+   using Microsoft.EntityFrameworkCore;
+   using Models;
+
+   public class CamerBazzaDbContext : IdentityDbContext<User>
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        public CamerBazzaDbContext(DbContextOptions<CamerBazzaDbContext> options)
             : base(options)
         {
         }

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace CameraBazza.Models.AccountViewModels
+﻿namespace CameraBazza.Web.Models.AccountViewModels
 {
-    public class ResetPasswordViewModel
+   using System.ComponentModel.DataAnnotations;
+
+   public class ResetPasswordViewModel
     {
         [Required]
         [EmailAddress]
