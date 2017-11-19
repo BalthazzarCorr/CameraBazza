@@ -5,16 +5,25 @@
    using Models;
 
    public class CamerBazzaDbContext : IdentityDbContext<User>
-    {
-        public CamerBazzaDbContext(DbContextOptions<CamerBazzaDbContext> options)
-            : base(options)
-        {
-        }
+   {
 
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            base.OnModelCreating(builder);
-            
-        }
-    }
+
+      public CamerBazzaDbContext(DbContextOptions<CamerBazzaDbContext> options)
+           : base(options)
+      {
+      }
+
+      public DbSet<Camera> Cameras { get; set; }
+
+      protected override void OnModelCreating(ModelBuilder builder)
+      {
+         builder.Entity<User>()
+            .HasMany(u => u.Cameras)
+            .WithOne(c => c.User)
+            .HasForeignKey(c => c.UserId);
+
+         base.OnModelCreating(builder);
+
+      }
+   }
 }
