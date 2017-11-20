@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Implementation\" />
+    <ProjectReference Include="..\CameraBazza.Data\CameraBazza.Data.csproj" />
   </ItemGroup>
 
 </Project>
