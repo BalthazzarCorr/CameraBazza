@@ -9,6 +9,8 @@
    using Microsoft.EntityFrameworkCore;
    using Microsoft.Extensions.Configuration;
    using Microsoft.Extensions.DependencyInjection;
+   using Services;
+   using Services.Implementation;
 
    public class Startup
     {
@@ -40,8 +42,9 @@
 
             // Add application services.
             services.AddDomainServices();
+         
 
-            services.AddMvc();
+         services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

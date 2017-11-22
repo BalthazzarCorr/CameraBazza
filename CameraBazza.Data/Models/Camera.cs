@@ -35,7 +35,7 @@
       [MaxLength(15)]
       public string VideoResolution { get; set; }
 
-      public LightMetering LightMetering { get; set; }
+      public int LightMetering { get; set; }
 
       [Required]
       [MaxLength(6000)]

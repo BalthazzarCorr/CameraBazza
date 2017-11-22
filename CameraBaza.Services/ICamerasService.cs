@@ -2,6 +2,7 @@
 {
    using System.Collections.Generic;
    using Data.Models;
+   using Models;
 
    public interface ICamerasService
    {
@@ -21,6 +22,14 @@
          string imgUrl,
          string userId
          );
+
+      IEnumerable<CamerasListingModel> All();
+
+      IEnumerable<CamerasListingModel> AllForUser(string id);
+
+      CamerasDetailModel Details(int id);
+
+      IEnumerable<CamerasListingModel> GetCamerasDetailsForUser(string id);
 
    }
 }

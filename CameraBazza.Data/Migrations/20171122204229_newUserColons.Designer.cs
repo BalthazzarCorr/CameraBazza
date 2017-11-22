@@ -12,9 +12,10 @@ using System;
 namespace CameraBazza.Data.Migrations
 {
     [DbContext(typeof(CamerBazzaDbContext))]
-    partial class CamerBazzaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171122204229_newUserColons")]
+    partial class newUserColons
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

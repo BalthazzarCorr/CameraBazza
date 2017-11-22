@@ -1,5 +1,6 @@
 ﻿namespace CameraBazza.Web.Controllers
 {
+   using System.Linq;
    using Data.Models;
    using Microsoft.AspNetCore.Authorization;
    using Microsoft.AspNetCore.Identity;
@@ -7,12 +8,15 @@
    using Models.Cameras;
    using Services;
 
+
    public class CamerasController : Controller
    {
 
       private readonly ICamerasService cameras;
 
       private readonly UserManager<User> userManager;
+
+      
 
 
       public CamerasController(ICamerasService cameras, UserManager<User> userManager)
@@ -28,6 +32,11 @@
       [Authorize]
       public IActionResult Add(AddCameraViewModel cameraModel)
       {
+
+         if (cameraModel.LightMeterings == null || !cameraModel.LightMeterings.Any())
+         {
+            ModelState.AddModelError(nameof(cameraModel.LightMeterings),"Please select one of the check boxes");
+         }
          if (!ModelState.IsValid)
          {
             return View(cameraModel);
@@ -51,5 +60,16 @@
 
          return RedirectToAction(nameof(HomeController.Index), "Home");
       }
+
+      [Authorize]
+      public IActionResult All()
+         => View(this.cameras.All());
+
+      [Authorize]
+      public IActionResult Details(int id) => View(this.cameras.Details(id));
+
+
+
+
    }
 }

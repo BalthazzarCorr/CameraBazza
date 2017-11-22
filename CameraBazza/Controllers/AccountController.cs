@@ -11,6 +11,7 @@
    using Microsoft.AspNetCore.Mvc;
    using Microsoft.Extensions.Logging;
    using Models.AccountViewModels;
+   using Services;
 
    [Authorize]
    [Route("[controller]/[action]")]
@@ -18,17 +19,19 @@
    {
       private readonly UserManager<User> _userManager;
       private readonly SignInManager<User> _signInManager;
+      private readonly IUserService _userService;
 
       private readonly ILogger _logger;
 
       public AccountController(
           UserManager<User> userManager,
           SignInManager<User> signInManager,
-          ILogger<AccountController> logger)
+          ILogger<AccountController> logger, IUserService userService)
       {
          _userManager = userManager;
          _signInManager = signInManager;
          _logger = logger;
+         this._userService = userService;
       }
 
       [TempData]
@@ -59,6 +62,7 @@
             if (result.Succeeded)
             {
                _logger.LogInformation("User logged in.");
+               this._userService.SaveLoginDate(model.Username, DateTime.UtcNow);
                return RedirectToLocal(returnUrl);
             }
             if (result.RequiresTwoFactor)
