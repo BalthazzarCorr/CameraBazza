@@ -29,6 +29,23 @@
 
       CamerasDetailModel Details(int id);
 
+      CamerasDetailModel Edit(int id);
+
+      void Edit(int id, 
+         CameraMake make,
+         string model,
+         decimal price,
+         int quantity,
+         int minShutterSpeed,
+         int maxShutterSpeed,
+         MinISO minIso,
+         int maxIso,
+         bool isFullFrame,
+         string videoResolutino,
+         IEnumerable<LightMetering> lightMeterings,
+         string description,
+         string imgUrl);
+
       IEnumerable<CamerasListingModel> GetCamerasDetailsForUser(string id);
 
    }

@@ -7,6 +7,7 @@
    using Microsoft.AspNetCore.Mvc;
    using Models.Cameras;
    using Services;
+   using Services.Models;
 
 
    public class CamerasController : Controller
@@ -59,6 +60,37 @@
             );
 
          return RedirectToAction(nameof(HomeController.Index), "Home");
+      }
+
+      [Authorize]
+      public IActionResult Edit(int id) => View(this.cameras.Edit(id));
+
+      [Authorize]
+      [HttpPost]
+      public IActionResult Edit(int id, CamerasDetailModel camModel)
+      {
+         if (!ModelState.IsValid)
+         {
+            return View(camModel);
+         }
+
+         this.cameras.Edit(
+            id,
+            camModel.Make,
+            camModel.Model,
+            camModel.Price,
+            camModel.Quantity,
+            camModel.MinShutterSpeed,
+            camModel.MaxShutterSpeed,
+            camModel.MinISO,
+            camModel.MaxISO,
+            camModel.IsFullFrame,
+            camModel.VideoResolution,
+            camModel.LightMeterings,
+            camModel.Description,
+            camModel.ImgUrl
+         );
+         return this.RedirectToAction("Index","Home");
       }
 
       [Authorize]

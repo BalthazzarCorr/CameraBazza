@@ -33,9 +33,9 @@
             @if (this.User.GetUserId() != null && this.User.GetUserId() == Model.UserId)
             {
                 <div class="col-md-2">
-                    <a class="btn btn-info form-control" asp-action="Edit" asp-controller="Camera" asp-route-id="@Model.Id">Edit</a>
+                    <a class="btn btn-info form-control" asp-action="Edit" asp-controller="Cameras" asp-route-id="@Model.Id">Edit</a>
                     <br/>
-                    <a class="btn btn-warning form-control" asp-action="Delete" asp-controller="Camera" asp-route-id="@Model.Id">Delete</a>
+                    <a class="btn btn-warning form-control" asp-action="Delete" asp-controller="Cameras" asp-route-id="@Model.Id">Delete</a>
                 </div>
             }
         </div>

@@ -69,5 +69,9 @@
                LastLogin = u.LastLogin
             }).First();
 
+      public EditProfileModel EdtiProfile(string id)
+      {
+         throw new NotImplementedException();
+      }
    }
 }

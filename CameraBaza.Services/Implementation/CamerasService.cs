@@ -9,6 +9,8 @@
    using Microsoft.AspNetCore.Identity;
    using Models;
 
+
+
    public class CamerasService : ICamerasService
    {
       private readonly CamerBazzaDbContext db;
@@ -77,7 +79,7 @@
       }
 
       public CamerasDetailModel Details(int id)
-         => this.db.Cameras.Where(s => s.Id == id ).Select(s => new CamerasDetailModel
+         => this.db.Cameras.Where(s => s.Id == id).Select(s => new CamerasDetailModel
          {
             Make = s.Make,
             Model = s.Model,
@@ -96,6 +98,67 @@
 
          }).FirstOrDefault();
 
+      public CamerasDetailModel Edit(int id)
+         => this.db.Cameras.Where(c => c.Id == id).Select(s => new CamerasDetailModel
+         {
+            Make = s.Make,
+            Model = s.Model,
+            Price = s.Price,
+            Description = s.Description,
+            Quantity = s.Quantity,
+            ImgUrl = s.ImageURL,
+            IsFullFrame = s.IsFullFrame,
+            MinShutterSpeed = s.MinShutterSpeed,
+            MaxShutterSpeed = s.MaxShutterSpeed,
+            VideoResolution = s.VideoResolution,
+            MinISO = s.MinISO,
+            MaxISO = s.MaxISO,
+            Username = s.User.UserName,
+            LightMeterings = s.LightMetering.GetMeterings(),
+
+
+         }).FirstOrDefault();
+
+      
+
+      public void Edit(int id, CameraMake make,
+         string model,
+         decimal price,
+         int quantity,
+         int minShutterSpeed,
+         int maxShutterSpeed,
+         MinISO minIso,
+         int maxIso,
+         bool isFullFrame,
+         string videoResolutino,
+         IEnumerable<LightMetering> lightMeterings,
+         string description,
+         string imgUrl
+         )
+      {
+         var cameraExist = this.db.Cameras.Find(id);
+         if (cameraExist == null)
+         {
+            return;
+         }
+         cameraExist.Make = make;
+         cameraExist.Model = model;
+         cameraExist.Price = price;
+         cameraExist.Quantity = quantity;
+         cameraExist.MinShutterSpeed = minShutterSpeed;
+         cameraExist.MaxShutterSpeed = maxShutterSpeed;
+         cameraExist.MinISO = minIso;
+         cameraExist.MaxISO = maxIso;
+         cameraExist.IsFullFrame = isFullFrame;
+         cameraExist.VideoResolution = videoResolutino;
+         cameraExist.LightMetering = lightMeterings.Cast<int>().Sum();
+         cameraExist.Description = description;
+         cameraExist.ImageURL = imgUrl;
+
+         this.db.SaveChanges();
+
+      }
+
       public IEnumerable<CamerasListingModel> GetCamerasDetailsForUser(string id)
       {
          var cameras = this.db.Cameras.Where(c => c.UserId == id)
@@ -106,7 +169,7 @@
                Price = c.Price,
                ImgUrl = c.ImageURL,
                Id = c.Id,
-               Quantity = c.Quantity ,
+               Quantity = c.Quantity,
                UserId = c.UserId
             }).ToList();
 

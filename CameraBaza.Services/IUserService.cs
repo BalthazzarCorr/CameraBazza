@@ -12,5 +12,7 @@
       void SaveLoginDate(string username, DateTime logginTime);
 
       EditProfileModel GetProfileEditInfo(string id);
+
+      EditProfileModel EdtiProfile(string id);
    }
 }
