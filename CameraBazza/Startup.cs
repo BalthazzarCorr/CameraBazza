@@ -2,10 +2,12 @@
 {
    using Data;
    using Data.Models;
+   using Infrastructure;
    using Infrastructure.Extensions;
    using Microsoft.AspNetCore.Builder;
    using Microsoft.AspNetCore.Hosting;
    using Microsoft.AspNetCore.Identity;
+   using Microsoft.AspNetCore.Mvc;
    using Microsoft.EntityFrameworkCore;
    using Microsoft.Extensions.Configuration;
    using Microsoft.Extensions.DependencyInjection;
@@ -44,7 +46,12 @@
             services.AddDomainServices();
          
 
-         services.AddMvc();
+         services.AddMvc(options =>
+         {
+            options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+            options.Filters.Add(new SimpleLogAttribute());
+            options.Filters.Add(new ActionTimeAttribute());
+         });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
