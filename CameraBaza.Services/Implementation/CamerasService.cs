@@ -1,6 +1,6 @@
 ﻿namespace CameraBazza.Services.Implementation
 {
-
+   using System;
    using System.Collections.Generic;
    using System.Linq;
    using Data;
@@ -62,8 +62,7 @@
          }).ToList();
 
       public IEnumerable<CamerasListingModel> AllForUser(string id)
-      {
-         var cameras = this.db.Cameras.Where(c => c.UserId == id)
+             => this.db.Cameras.Where(c => c.UserId == id)
             .Select(c => new CamerasListingModel()
             {
                Make = c.Make,
@@ -74,12 +73,12 @@
                Quantity = c.Quantity,
                UserId = c.UserId
             }).ToList();
-
-         return cameras;
-      }
-
+         
+      
       public CamerasDetailModel Details(int id)
-         => this.db.Cameras.Where(s => s.Id == id).Select(s => new CamerasDetailModel
+         => this.db.Cameras
+         .Where(s => s.Id == id)
+         .Select(s => new CamerasDetailModel
          {
             Make = s.Make,
             Model = s.Model,
@@ -119,7 +118,49 @@
 
          }).FirstOrDefault();
 
-      
+      public CamerasDetailModel GetCameraCompleteEditInfromatio(int cameraId)
+      {
+         var cam = this.db.Cameras.First(c => c.Id == cameraId);
+
+         CamerasDetailModel editCameraModel = new CamerasDetailModel()
+         {
+            Make = cam.Make,
+            Model = cam.Model,
+            Price = cam.Price,
+            Id = cam.Id,
+            Description = cam.Description,
+            ImgUrl = cam.ImageURL,
+            IsFullFrame = cam.IsFullFrame,
+            MaxISO = cam.MaxISO,
+            MinISO = cam.MinISO,
+            MaxShutterSpeed = cam.MaxShutterSpeed,
+            MinShutterSpeed = cam.MinShutterSpeed,
+            Quantity = cam.Quantity,
+            VideoResolution = cam.VideoResolution,
+            LightMeterings = cam.LightMetering.GetMeterings()
+         };
+
+         return editCameraModel;
+      }
+
+      public bool CameraExists(int? id)
+      {
+         if (id is  null )
+         {
+            return false;
+         }
+        return this.db.Cameras.Any(c => c.Id == id);
+      }
+
+      public void Delete(int id)
+      {
+         var cam = this.db.Cameras.First(c=>c.Id == id);
+
+         this.db.Remove(cam);
+
+         this.db.SaveChanges();
+      }
+
 
       public void Edit(int id, CameraMake make,
          string model,
@@ -160,8 +201,7 @@
       }
 
       public IEnumerable<CamerasListingModel> GetCamerasDetailsForUser(string id)
-      {
-         var cameras = this.db.Cameras.Where(c => c.UserId == id)
+             => this.db.Cameras.Where(c => c.UserId == id)
             .Select(c => new CamerasListingModel()
             {
                Make = c.Make,
@@ -173,7 +213,7 @@
                UserId = c.UserId
             }).ToList();
 
-         return cameras;
-      }
+        
+      
    }
 }

@@ -31,6 +31,12 @@
 
       CamerasDetailModel Edit(int id);
 
+      CamerasDetailModel GetCameraCompleteEditInfromatio(int cameraId);
+
+      bool CameraExists(int? id);
+
+      void Delete(int id);
+
       void Edit(int id, 
          CameraMake make,
          string model,

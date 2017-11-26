@@ -101,6 +101,32 @@
       public IActionResult Details(int id) => View(this.cameras.Details(id));
 
 
+      [Authorize]
+      public IActionResult Delete(int id)
+      {
+         if (this.cameras.CameraExists(id))
+         {
+            var cameraForDeleteing = this.cameras.GetCameraCompleteEditInfromatio(id);
+
+            return View(cameraForDeleteing);
+         }
+
+         return NotFound();
+      }
+
+      [Authorize]
+      [HttpPost]
+      public IActionResult Destroy(int id)
+      {
+         if (this.cameras.CameraExists(id))
+         {
+            this.cameras.Delete(id);
+
+            return RedirectToAction("Index","Home");
+         }
+
+         return NotFound();
+      }
 
 
    }
